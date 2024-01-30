@@ -7,12 +7,21 @@
         "vid": "0x3434"
     },
     "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
         "dip_switch": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "grave_esc": false,
+        "magic": false,
+        "midi": false,
+        "mouse": false,
+        "nkro": false,
+        "raw": false,
+        "space_cadet": false,
+        "tri_layer": false,
+        "unicode": false,
     }
 }
