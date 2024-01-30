@@ -16,6 +16,9 @@
 
 #include QMK_KEYBOARD_H
 
+// For macro definitions
+#include "dynamic_keymap.h"
+
 enum layers{
   MAC_BASE,
   MAC_FN,
