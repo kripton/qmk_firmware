@@ -16,8 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-// For macro definitions
-#include "dynamic_keymap.h"
+#include "os_detection.h"
 
 enum layers{
   MAC_BASE,
@@ -75,8 +74,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [WIN_FN] = LAYOUT_104_ansi(
         KC_SLEP,                KC_BRID,    KC_BRIU,    KC_TASK,    KC_FLXP,    BL_DOWN,    BL_UP,      KC_MPRV,    KC_MPLY,    KC_MNXT,    KC_MUTE,    KC_VOLD,      KC_VOLU,    _______,    _______,    BL_STEP,
-        _______,    QK_MACRO_1, QK_MACRO_2, QK_MACRO_3, QK_MACRO_4, QK_MACRO_5, QK_MACRO_6, QK_MACRO_7, QK_MACRO_8, QK_MACRO_9, QK_MACRO_10,_______,    _______,      _______,    _______,    _______,    _______,    KC_CALC,    _______,    _______,    QK_BOOT,
-        _______,    KC_BTN1,    KC_MS_U,    KC_BTN2,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,      _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    QK_MACRO_1, QK_MACRO_2, QK_MACRO_3, QK_MACRO_4, QK_MACRO_5, QK_MACRO_6, QK_MACRO_7, QK_MACRO_8, QK_MACRO_9, QK_MACRO_10,_______,    _______,      _______,    _______,    _______,    KC_WH_U,    KC_CALC,    _______,    _______,    _______,
+        _______,    KC_BTN1,    KC_MS_U,    KC_BTN2,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,      _______,    _______,    _______,    KC_WH_D,    _______,    _______,    _______,    _______,
         _______,    KC_MS_L,    KC_MS_D,    KC_MS_R,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,                  _______,                                        _______,    _______,    _______,
         _______,                _______,    _______,    _______,    _______,    _______,    NK_TOGG,    _______,    _______,    _______,    _______,                  _______,                _______,                _______,    _______,    _______,    _______,
         _______,    _______,    _______,                                        _______,                                        _______,    _______,    _______,      _______,    _______,    _______,    _______,    _______,                _______         ),
@@ -90,15 +89,23 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 
 
-// Since dynamic_keymap_macros processes the macro keys before we can
-// access them in process_record_user, we define the macros on startup
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+            case QK_MACRO_1:
+                SEND_STRING("127.0.0.1");
+                return false;
+                break;
+            case QK_MACRO_2:
+                SEND_STRING("0.0.0.0");
+                return false;
+                break;
+            case QK_MACRO_3:
+                SEND_STRING("192.168.");
+                return false;
+                break;
+        }
+    }
+    return true;
+};
 
-// This is a bit strange ... first macros is empty and octal notation
-// is the only thing I got working when string continues with decimals ...
-const char* macros = { "\000127.0.0.1\0000.0.0.0\000192.168.\000" };
-
-void keyboard_post_init_user(void) {
-    // Call the post init code.
-    dynamic_keymap_macro_reset();
-    dynamic_keymap_macro_set_buffer(0, 28, (uint8_t*)macros);
-}
