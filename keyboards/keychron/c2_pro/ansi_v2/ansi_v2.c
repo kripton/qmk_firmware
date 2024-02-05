@@ -42,8 +42,12 @@ void housekeeping_task_kb(void) {
         writePin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
         writePin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
     }
-    if (default_layer_state == (1 << 2)) {
+    else if (default_layer_state == (1 << 2)) {
         writePin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
+        writePin(LED_WIN_OS_PIN, LED_OS_PIN_ON_STATE);
+    }
+    else if (default_layer_state == (1 << 3)) {
+        writePin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
         writePin(LED_WIN_OS_PIN, LED_OS_PIN_ON_STATE);
     }
 }

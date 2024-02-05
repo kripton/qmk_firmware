@@ -10,7 +10,6 @@
         "command": true,
         "console": true,
         "dip_switch": true,
-        "dynamic_keymap": true,
         "extrakey": true,
         "magic": true,
         "mouse": true,
@@ -19,6 +18,7 @@
         "space_cadet": true,
 
         "bootmagic": false,
+        "dynamic_keymap": false,
         "grave_esc": false,
         "midi": false,
         "nkro": false,
