@@ -23,3 +23,11 @@
 /* Factory Reset Key Definition */
 #define FN_KEY1 MO(1)
 #define FN_KEY2 MO(3)
+
+// Space cadet: Shift is normal parantheses (default)
+//              Control is curly braces = shift + square braces
+#define LCPO_KEYS KC_LEFT_CTRL, KC_LEFT_SHIFT, KC_LEFT_BRACKET
+#define RCPC_KEYS KC_RIGHT_CTRL, KC_LEFT_SHIFT, KC_RIGHT_BRACKET
+//              Alt is angled brackets = shift + comma / dot
+#define LAPO_KEYS KC_LEFT_ALT, KC_LEFT_SHIFT, KC_COMMA
+#define RAPC_KEYS KC_RIGHT_ALT, KC_RIGHT_SHIFT, KC_DOT
